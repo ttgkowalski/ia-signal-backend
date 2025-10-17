@@ -5,13 +5,13 @@ services:
     image: postgres:16
     restart: always
     environment:
-      POSTGRES_USER: "${DB_USER}"
-      POSTGRES_PASSWORD: "${DB_PASSWORD}"
-      POSTGRES_DB: "${PROJECT_NAME}_${ENVIRONMENT}"
+      POSTGRES_USER: "user"
+      POSTGRES_PASSWORD: "Krawkpp1"
+      POSTGRES_DB: "boilerplate_development"
     ports:
-      - "${DB_PORT:-5432}:5432"
+      - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-
 volumes:
   postgres_data:
+

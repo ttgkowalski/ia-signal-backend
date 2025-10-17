@@ -1,12 +1,14 @@
-import { Kysely, PostgresDialect } from "kysely";
-import { Pool } from "pg";
+import { Kysely, PostgresDialect } from 'kysely'
+import { Pool } from 'pg'
 
-import type { TenantTable } from "../domain/tenant/tenant.table";
-import type { UserTable } from "../domain/user/user.table";
+import type { TenantTable } from '../domain/tenant/tenant.table'
+import type { UserTable } from '../domain/user/user.table'
+import type { ProfileTable } from '../domain/profile/profile.table'
 
 export interface Database {
-  tenants: TenantTable;
-  users: UserTable;
+  tenants: TenantTable
+  users: UserTable
+  profiles: ProfileTable
 }
 
 const pool = new Pool({
@@ -16,14 +18,12 @@ const pool = new Pool({
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   max: 10,
-});
+})
 
 export const db = new Kysely<Database>({
   dialect: new PostgresDialect({ pool }),
-});
+})
 
 export async function destroyDb(): Promise<void> {
-  await pool.end();
+  await pool.end()
 }
-
-

@@ -10,7 +10,7 @@ export type Role = "Admin" | "Manager" | "User"
 
 export interface UserTable {
     id: Generated<string>
-    tenant_id: string | null // affiliate_id
+    affiliate_id: string | null
     email: string
     password_hash: string
     role: Role

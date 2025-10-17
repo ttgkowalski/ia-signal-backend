@@ -38,8 +38,13 @@
             },
             "url": {
               "raw": "{{baseUrl}}/auth/register",
-              "host": ["{{baseUrl}}"],
-              "path": ["auth", "register"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "register"
+              ]
             },
             "description": "Registra um novo usuário no sistema"
           },
@@ -60,8 +65,13 @@
                 },
                 "url": {
                   "raw": "{{baseUrl}}/auth/register",
-                  "host": ["{{baseUrl}}"],
-                  "path": ["auth", "register"]
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "auth",
+                    "register"
+                  ]
                 }
               },
               "status": "Created",
@@ -74,7 +84,7 @@
                 }
               ],
               "cookie": [],
-              "body": "{\n  \"user\": {\n    \"id\": \"uuid\",\n    \"email\": \"usuario@exemplo.com\",\n    \"role\": \"User\",\n    \"tenant_id\": null,\n    \"created_at\": \"2024-01-01T00:00:00.000Z\"\n  },\n  \"token\": \"jwt_token_aqui\"\n}"
+              "body": "{\n  \"user\": {\n    \"id\": \"uuid\",\n    \"email\": \"usuario@exemplo.com\",\n    \"role\": \"User\",\n    \"affiliate_id\": null,\n    \"created_at\": \"2024-01-01T00:00:00.000Z\"\n  },\n  \"token\": \"jwt_token_aqui\"\n}"
             }
           ]
         },
@@ -94,8 +104,13 @@
             },
             "url": {
               "raw": "{{baseUrl}}/auth/login",
-              "host": ["{{baseUrl}}"],
-              "path": ["auth", "login"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
             },
             "description": "Faz login do usuário e retorna token de autenticação"
           },
@@ -116,8 +131,13 @@
                 },
                 "url": {
                   "raw": "{{baseUrl}}/auth/login",
-                  "host": ["{{baseUrl}}"],
-                  "path": ["auth", "login"]
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "auth",
+                    "login"
+                  ]
                 }
               },
               "status": "OK",
@@ -130,7 +150,7 @@
                 }
               ],
               "cookie": [],
-              "body": "{\n  \"user\": {\n    \"id\": \"uuid\",\n    \"email\": \"usuario@exemplo.com\",\n    \"role\": \"User\",\n    \"tenant_id\": null,\n    \"created_at\": \"2024-01-01T00:00:00.000Z\"\n  },\n  \"token\": \"jwt_token_aqui\"\n}"
+              "body": "{\n  \"user\": {\n    \"id\": \"uuid\",\n    \"email\": \"usuario@exemplo.com\",\n    \"role\": \"User\",\n    \"affiliate_id\": null,\n    \"created_at\": \"2024-01-01T00:00:00.000Z\"\n  },\n  \"token\": \"jwt_token_aqui\"\n}"
             },
             {
               "name": "Unauthorized",
@@ -148,8 +168,13 @@
                 },
                 "url": {
                   "raw": "{{baseUrl}}/auth/login",
-                  "host": ["{{baseUrl}}"],
-                  "path": ["auth", "login"]
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "auth",
+                    "login"
+                  ]
                 }
               },
               "status": "Unauthorized",
@@ -188,12 +213,16 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"tenant_id\": \"tenant-uuid\",\n  \"email\": \"novo@usuario.com\",\n  \"password\": \"senha123456\",\n  \"role\": \"User\"\n}"
+              "raw": "{\n  \"affiliate_id\": \"affiliate-uuid\",\n  \"email\": \"novo@usuario.com\",\n  \"password\": \"senha123456\",\n  \"role\": \"User\"\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/users",
-              "host": ["{{baseUrl}}"],
-              "path": ["users"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users"
+              ]
             },
             "description": "Cria um novo usuário (requer role 'User')"
           },
@@ -214,12 +243,16 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"tenant_id\": \"tenant-uuid\",\n  \"email\": \"novo@usuario.com\",\n  \"password\": \"senha123456\",\n  \"role\": \"User\"\n}"
+                  "raw": "{\n  \"affiliate_id\": \"affiliate-uuid\",\n  \"email\": \"novo@usuario.com\",\n  \"password\": \"senha123456\",\n  \"role\": \"User\"\n}"
                 },
                 "url": {
                   "raw": "{{baseUrl}}/users",
-                  "host": ["{{baseUrl}}"],
-                  "path": ["users"]
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users"
+                  ]
                 }
               },
               "status": "Created",
@@ -232,7 +265,7 @@
                 }
               ],
               "cookie": [],
-              "body": "{\n  \"id\": \"uuid\",\n  \"tenant_id\": \"tenant-uuid\",\n  \"email\": \"novo@usuario.com\",\n  \"role\": \"User\",\n  \"created_at\": \"2024-01-01T00:00:00.000Z\"\n}"
+              "body": "{\n  \"id\": \"uuid\",\n  \"affiliate_id\": \"affiliate-uuid\",\n  \"email\": \"novo@usuario.com\",\n  \"role\": \"User\",\n  \"created_at\": \"2024-01-01T00:00:00.000Z\"\n}"
             }
           ]
         },
@@ -248,8 +281,12 @@
             ],
             "url": {
               "raw": "{{baseUrl}}/users",
-              "host": ["{{baseUrl}}"],
-              "path": ["users"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users"
+              ]
             },
             "description": "Lista todos os usuários (requer role 'User')"
           },
@@ -266,8 +303,12 @@
                 ],
                 "url": {
                   "raw": "{{baseUrl}}/users",
-                  "host": ["{{baseUrl}}"],
-                  "path": ["users"]
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users"
+                  ]
                 }
               },
               "status": "OK",
@@ -280,7 +321,7 @@
                 }
               ],
               "cookie": [],
-              "body": "[\n  {\n    \"id\": \"uuid1\",\n    \"tenant_id\": \"tenant-uuid\",\n    \"email\": \"usuario1@exemplo.com\",\n    \"role\": \"User\",\n    \"created_at\": \"2024-01-01T00:00:00.000Z\"\n  },\n  {\n    \"id\": \"uuid2\",\n    \"tenant_id\": \"tenant-uuid\",\n    \"email\": \"usuario2@exemplo.com\",\n    \"role\": \"User\",\n    \"created_at\": \"2024-01-01T00:00:00.000Z\"\n  }\n]"
+              "body": "[\n  {\n    \"id\": \"uuid1\",\n    \"affiliate_id\": \"affiliate-uuid\",\n    \"email\": \"usuario1@exemplo.com\",\n    \"role\": \"User\",\n    \"created_at\": \"2024-01-01T00:00:00.000Z\"\n  },\n  {\n    \"id\": \"uuid2\",\n    \"affiliate_id\": \"affiliate-uuid\",\n    \"email\": \"usuario2@exemplo.com\",\n    \"role\": \"User\",\n    \"created_at\": \"2024-01-01T00:00:00.000Z\"\n  }\n]"
             }
           ]
         },
@@ -296,8 +337,13 @@
             ],
             "url": {
               "raw": "{{baseUrl}}/users/:id",
-              "host": ["{{baseUrl}}"],
-              "path": ["users", ":id"],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                ":id"
+              ],
               "variable": [
                 {
                   "key": "id",
@@ -321,8 +367,13 @@
                 ],
                 "url": {
                   "raw": "{{baseUrl}}/users/user-uuid",
-                  "host": ["{{baseUrl}}"],
-                  "path": ["users", "user-uuid"]
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "user-uuid"
+                  ]
                 }
               },
               "status": "OK",
@@ -335,7 +386,7 @@
                 }
               ],
               "cookie": [],
-              "body": "{\n  \"id\": \"user-uuid\",\n  \"tenant_id\": \"tenant-uuid\",\n  \"email\": \"usuario@exemplo.com\",\n  \"role\": \"User\",\n  \"created_at\": \"2024-01-01T00:00:00.000Z\"\n}"
+              "body": "{\n  \"id\": \"user-uuid\",\n  \"affiliate_id\": \"affiliate-uuid\",\n  \"email\": \"usuario@exemplo.com\",\n  \"role\": \"User\",\n  \"created_at\": \"2024-01-01T00:00:00.000Z\"\n}"
             },
             {
               "name": "Not Found",
@@ -349,8 +400,13 @@
                 ],
                 "url": {
                   "raw": "{{baseUrl}}/users/non-existent-id",
-                  "host": ["{{baseUrl}}"],
-                  "path": ["users", "non-existent-id"]
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "non-existent-id"
+                  ]
                 }
               },
               "status": "Not Found",
@@ -382,8 +438,13 @@
             },
             "url": {
               "raw": "{{baseUrl}}/users/:id",
-              "host": ["{{baseUrl}}"],
-              "path": ["users", ":id"],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                ":id"
+              ],
               "variable": [
                 {
                   "key": "id",
@@ -415,8 +476,13 @@
                 },
                 "url": {
                   "raw": "{{baseUrl}}/users/user-uuid",
-                  "host": ["{{baseUrl}}"],
-                  "path": ["users", "user-uuid"]
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "user-uuid"
+                  ]
                 }
               },
               "status": "OK",
@@ -429,7 +495,7 @@
                 }
               ],
               "cookie": [],
-              "body": "{\n  \"id\": \"user-uuid\",\n  \"tenant_id\": \"tenant-uuid\",\n  \"email\": \"novoemail@exemplo.com\",\n  \"role\": \"User\",\n  \"created_at\": \"2024-01-01T00:00:00.000Z\"\n}"
+              "body": "{\n  \"id\": \"user-uuid\",\n  \"affiliate_id\": \"affiliate-uuid\",\n  \"email\": \"novoemail@exemplo.com\",\n  \"role\": \"User\",\n  \"created_at\": \"2024-01-01T00:00:00.000Z\"\n}"
             },
             {
               "name": "Not Found",
@@ -451,8 +517,13 @@
                 },
                 "url": {
                   "raw": "{{baseUrl}}/users/non-existent-id",
-                  "host": ["{{baseUrl}}"],
-                  "path": ["users", "non-existent-id"]
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "non-existent-id"
+                  ]
                 }
               },
               "status": "Not Found",
@@ -476,8 +547,13 @@
             ],
             "url": {
               "raw": "{{baseUrl}}/users/:id",
-              "host": ["{{baseUrl}}"],
-              "path": ["users", ":id"],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                ":id"
+              ],
               "variable": [
                 {
                   "key": "id",
@@ -501,8 +577,13 @@
                 ],
                 "url": {
                   "raw": "{{baseUrl}}/users/user-uuid",
-                  "host": ["{{baseUrl}}"],
-                  "path": ["users", "user-uuid"]
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "user-uuid"
+                  ]
                 }
               },
               "status": "No Content",
@@ -527,8 +608,12 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/ping",
-              "host": ["{{baseUrl}}"],
-              "path": ["ping"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "ping"
+              ]
             },
             "description": "Endpoint simples para verificar se a API está funcionando"
           },
@@ -540,8 +625,12 @@
                 "header": [],
                 "url": {
                   "raw": "{{baseUrl}}/ping",
-                  "host": ["{{baseUrl}}"],
-                  "path": ["ping"]
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "ping"
+                  ]
                 }
               },
               "status": "OK",
