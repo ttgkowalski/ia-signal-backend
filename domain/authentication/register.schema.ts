@@ -17,3 +17,5 @@ export const registerSchema = z.object({
   last_name: z.string().min(1),
   timezone: z.string().min(1),
 })
+
+export type registerDTO = z.infer<typeof registerSchema>

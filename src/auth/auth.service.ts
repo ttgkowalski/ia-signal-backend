@@ -3,16 +3,19 @@ import {
   atriumRegister,
   atriumLogin,
   atriumGetProfile,
-} from '../clients/atrium.client.ts'
+} from '../clients/atrium.client'
 import { atriumProfileSchema } from '../../domain/user'
 import { sign, type SignOptions, type Secret } from 'jsonwebtoken'
-import type { Role, NewUser, User } from '../../domain/user/user.table'
-import { userRepo } from '../user/user.repo.ts'
-import { profileRepo } from '../profile/profile.repo.ts'
-import { registerSchema, loginSchema } from '../../domain/authentication'
+import type { Role, NewUser } from '../../domain/user/user.table'
+import { userRepo } from '../user/user.repo'
+import { profileRepo } from '../profile/profile.repo'
 import { NotFoundError } from '../errors/api-errors/not-found-error'
 import { BadRequestError } from '../errors/api-errors/bad-request-error'
-import { th } from 'zod/locales'
+import { ConflictError } from '../errors'
+import { InternalServerError } from '../errors'
+import { registerDTO } from '../../domain/authentication/register.schema'
+import { loginDTO } from '../../domain/authentication/login.schema'
+import { profile } from 'console'
 
 const SALT_ROUNDS = 10
 
@@ -32,8 +35,9 @@ function signJwt(user: { id: string; role: Role }): string {
   return sign({ sub: user.id, role: user.role }, secret, options)
 }
 
-async function registerUser(inputRaw: any) {
-  const input = registerSchema.parse(inputRaw)
+async function registerUser(input: registerDTO) {
+  const existing = await userRepo.getUserByEmail(input.identifier)
+  if (existing) throw new ConflictError('Email already exists')
 
   const password_hash = await hashPassword(input.password)
   const created = await userRepo.insertUser({
@@ -67,12 +71,13 @@ async function registerUser(inputRaw: any) {
   return { atrium, user: created }
 }
 
-async function login(inputRaw: any) {
-  const input = loginSchema.parse(inputRaw)
+async function login(input: loginDTO) {
   const existing = await userRepo.getUserByEmail(input.email)
-  if (!existing) throw new NotFoundError('User not found')
-  if (!existing.affiliate_id)
-    throw new BadRequestError('User has no affiliate ID')
+
+  if (!existing || !existing.affiliate_id) {
+    throw new BadRequestError('Invalid credentials')
+  }
+
   const ok = await verifyPassword(input.password, existing.password_hash)
   if (!ok) throw new BadRequestError('Invalid credentials')
 
@@ -83,6 +88,7 @@ async function login(inputRaw: any) {
   })
 
   const profile = await atriumGetProfile(atrium.ssid)
+
   // const profileData = await atriumGetProfile((atrium as any).ssid as string)
   // const profile = atriumProfileSchema.parse(profileData)
   // await profileRepo.upsertProfileByAffiliate(
@@ -91,11 +97,10 @@ async function login(inputRaw: any) {
   //   profile
   // )
 
-  const token = signJwt({
-    id: existing.id as string,
-    role: existing.role,
-  })
-  return { user: existing, token, atrium, profile }
+  const token = signJwt({ id: existing.id as string, role: existing.role })
+
+  const { password_hash, ...safeUser } = existing || {}
+  return { user: safeUser, token, atrium, profile }
 }
 
 export const authService = {
