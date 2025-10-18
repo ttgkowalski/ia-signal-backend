@@ -5,28 +5,28 @@ import type {
   ProfileUpdate,
 } from '../../domain/profile/profile.table'
 
-async function getProfileByAffiliate(
-  affiliate_id: string
+async function getProfileByAtriumId(
+  atrium_id: string
 ): Promise<Profile | undefined> {
   return db
     .selectFrom('profiles')
     .selectAll()
-    .where('affiliate_id', '=', affiliate_id)
+    .where('atrium_id', '=', atrium_id)
     .executeTakeFirst()
 }
 
-async function upsertProfileByAffiliate(
-  affiliate_id: string,
+async function upsertProfileByAtriumId(
+  atrium_id: string,
   user_id: string | null,
   profileData: any
 ): Promise<Profile> {
-  const existing = await getProfileByAffiliate(affiliate_id)
+  console.log(atrium_id, user_id, profileData)
+  const existing = await getProfileByAtriumId(atrium_id)
   if (existing) {
     const updated = await db
       .updateTable('profiles')
       .set({
         profile: profileData,
-        user_id,
         updated_at: new Date(),
       } as ProfileUpdate)
       .where('id', '=', existing.id)
@@ -37,13 +37,13 @@ async function upsertProfileByAffiliate(
 
   const created = await db
     .insertInto('profiles')
-    .values({ affiliate_id, user_id, profile: profileData } as NewProfile)
+    .values({ atrium_id, user_id, profile: profileData } as NewProfile)
     .returningAll()
     .executeTakeFirst()
   return created!
 }
 
 export const profileRepo = {
-  getProfileByAffiliate,
-  upsertProfileByAffiliate,
+  getProfileByAtriumId,
+  upsertProfileByAtriumId,
 }

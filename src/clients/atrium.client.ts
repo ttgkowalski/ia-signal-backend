@@ -1,5 +1,13 @@
 import axios from 'axios'
 import { AtriumLoginInput, AtriumRegisterInput } from '../@types/atrium'
+import { da, th } from 'zod/locales'
+import {
+  BadRequestError,
+  ConflictError,
+  InternalServerError,
+  NotFoundError,
+} from '../errors'
+import { AtriumErrors } from '../utils/atrium.error'
 
 const atriumClient = axios.create({
   baseURL:
@@ -11,8 +19,8 @@ export async function atriumRegister(input: AtriumRegisterInput) {
     const { data } = await atriumClient.post('/v3/users/register', input)
     return data
   } catch (error: any) {
-    console.error(error)
-    return error.request.message
+    AtriumErrors(error)
+    // if (error.response?.status === 409) {}
   }
 }
 
@@ -24,9 +32,7 @@ export async function atriumLogin(input: AtriumLoginInput) {
     })
     return data
   } catch (error: any) {
-    console.error(error)
-
-    return error.request.message
+    AtriumErrors(error)
   }
 }
 
@@ -37,11 +43,10 @@ export async function atriumGetProfile(ssid: string) {
         Cookie: `ssid=${ssid}`,
       },
     })
+
     return data
   } catch (error: any) {
-    console.error(error)
-
-    return error.request.message
+    AtriumErrors(error)
   }
 }
 

@@ -11,5 +11,4 @@ export interface AtriumRegisterInput {
 export interface AtriumLoginInput {
   identifier: string
   password: string
-  affiliate_id: string
 }

@@ -8,7 +8,7 @@ import type {
 
 export interface ProfileTable {
   id: Generated<string>
-  affiliate_id: string
+  atrium_id: string
   user_id: string | null
   profile: any
   created_at: ColumnType<Date, Date | undefined, never>

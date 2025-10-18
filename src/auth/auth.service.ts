@@ -61,14 +61,13 @@ async function registerUser(input: registerDTO) {
   const atrium = await atriumRegister(atriumBody)
 
   const profileData = await atriumGetProfile(atrium.ssid as string)
-  const profile = atriumProfileSchema.parse(profileData)
-  await profileRepo.upsertProfileByAffiliate(
-    String(created.affiliate_id),
+  await profileRepo.upsertProfileByAtriumId(
+    String(profileData.result.id),
     String(created.id),
-    profile
+    JSON.stringify(profileData)
   )
 
-  return { atrium, user: created }
+  return { atrium }
 }
 
 async function login(input: loginDTO) {
@@ -84,7 +83,6 @@ async function login(input: loginDTO) {
   const atrium = await atriumLogin({
     identifier: input.email,
     password: input.password,
-    affiliate_id: existing.affiliate_id,
   })
 
   const profile = await atriumGetProfile(atrium.ssid)

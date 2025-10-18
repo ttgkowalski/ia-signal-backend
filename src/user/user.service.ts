@@ -63,7 +63,6 @@ async function update(id: string, input: Partial<UserUpdate>): Promise<User> {
 
   if (input.affiliate_id !== undefined) {
     updateData.affiliate_id = input.affiliate_id
-    delete updateData.tenant_id
   }
 
   const updated = await userRepo.updateUser(id, updateData as UserUpdate)
