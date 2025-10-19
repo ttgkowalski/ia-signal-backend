@@ -1,17 +1,10 @@
 import axios from 'axios'
 import { AtriumLoginInput, AtriumRegisterInput } from '../@types/atrium'
-import { da, th } from 'zod/locales'
-import {
-  BadRequestError,
-  ConflictError,
-  InternalServerError,
-  NotFoundError,
-} from '../errors'
+
 import { AtriumErrors } from '../utils/atrium.error'
 
 const atriumClient = axios.create({
-  baseURL:
-    process.env.ATRIUM_BASE_URL || 'https://api.trade.atriunbroker.finance/',
+  baseURL: process.env.ATRIUM_BASE_URL,
 })
 
 export async function atriumRegister(input: AtriumRegisterInput) {

@@ -16,6 +16,7 @@ import { InternalServerError } from '../errors'
 import { registerDTO } from '../../domain/authentication/register.schema'
 import { loginDTO } from '../../domain/authentication/login.schema'
 import { profile } from 'console'
+import { getUserData } from '../clients/check.user'
 
 const SALT_ROUNDS = 10
 
@@ -70,10 +71,9 @@ async function registerUser(input: registerDTO) {
   return { atrium }
 }
 
-async function login(input: loginDTO) {
+async function login(input: loginDTO, affiliateId: string) {
   const existing = await userRepo.getUserByEmail(input.email)
-
-  if (!existing || !existing.affiliate_id) {
+  if (!existing) {
     throw new BadRequestError('Invalid credentials')
   }
 
@@ -84,16 +84,11 @@ async function login(input: loginDTO) {
     identifier: input.email,
     password: input.password,
   })
-
   const profile = await atriumGetProfile(atrium.ssid)
+  const affId = await getUserData(atrium.user_id as string)
 
-  // const profileData = await atriumGetProfile((atrium as any).ssid as string)
-  // const profile = atriumProfileSchema.parse(profileData)
-  // await profileRepo.upsertProfileByAffiliate(
-  //   String(existing.affiliate_id),
-  //   String(existing.id),
-  //   profile
-  // )
+  if (affId != affiliateId)
+    throw new BadRequestError('user does not belong to this application')
 
   const token = signJwt({ id: existing.id as string, role: existing.role })
 

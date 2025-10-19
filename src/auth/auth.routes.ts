@@ -1,11 +1,23 @@
-import { Router } from "express";
-import { authController } from "./auth.controller.ts";
-import { validateSchema } from "../middlewares/validate-schema.ts";
-import { loginSchema, registerSchema } from "../../domain/authentication/";
+import { Router } from 'express'
+import { authController } from './auth.controller.ts'
+import { validateSchema } from '../middlewares/validate-schema.ts'
+import {
+  loginHeadersSchema,
+  loginSchema,
+  registerSchema,
+} from '../../domain/authentication/'
 
-const authRoutes = Router();
+const authRoutes = Router()
 
-authRoutes.post("/register", validateSchema({ body: registerSchema }), authController.register);
-authRoutes.post("/login", validateSchema({ body: loginSchema }), authController.login);
+authRoutes.post(
+  '/register',
+  validateSchema({ body: registerSchema }),
+  authController.register
+)
+authRoutes.post(
+  '/login',
+  validateSchema({ body: loginSchema, headers: loginHeadersSchema }),
+  authController.login
+)
 
-export { authRoutes };
+export { authRoutes }
