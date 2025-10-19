@@ -4,9 +4,12 @@ import { BadRequestError, NotFoundError } from './errors/api-errors'
 import { authRoutes } from './auth/auth.routes.ts'
 import { userRoutes } from './user/user.routes.ts'
 import { profileRoutes } from './profile/profile.routes.ts'
+import { attachAuth } from './middlewares'
 
 const app = express()
 app.use(express.json())
+
+app.use(attachAuth)
 
 const router = Router()
 
