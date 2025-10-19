@@ -28,12 +28,16 @@ async function verifyPassword(plain: string, hash: string): Promise<boolean> {
   return bcrypt.compare(plain, hash)
 }
 
-function signJwt(user: { id: string; role: Role }): string {
+function signJwt(user: { id: string; role: Role; ssid: string }): string {
   const secret: Secret = process.env.JWT_SECRET || 'i-am-an-idiot'
   const options: SignOptions = {
     expiresIn: (process.env.JWT_EXPIRES_IN || '7d') as SignOptions['expiresIn'],
   }
-  return sign({ sub: user.id, role: user.role }, secret, options)
+  return sign(
+    { sub: user.id, role: user.role, ssid: user.ssid },
+    secret,
+    options
+  )
 }
 
 async function registerUser(input: registerDTO) {
@@ -87,10 +91,14 @@ async function login(input: loginDTO, affiliateId: string) {
   const profile = await atriumGetProfile(atrium.ssid)
   const affId = await getUserData(atrium.user_id as string)
 
-  if (affId != affiliateId)
-    throw new BadRequestError('user does not belong to this application')
+  // if (affId != affiliateId)
+  //   throw new BadRequestError('user does not belong to this application')
 
-  const token = signJwt({ id: existing.id as string, role: existing.role })
+  const token = signJwt({
+    id: existing.id as string,
+    role: existing.role,
+    ssid: atrium.ssid,
+  })
 
   const { password_hash, ...safeUser } = existing || {}
   return { user: safeUser, token, atrium, profile }
