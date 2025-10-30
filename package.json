@@ -36,6 +36,7 @@
     "kysely": "^0.28.8",
     "pg": "^8.16.3",
     "pnpm": "^10.18.3",
+    "ws": "^8.18.0",
     "zod": "^4.1.12"
   },
   "devDependencies": {
@@ -44,6 +45,7 @@
     "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^24.7.2",
     "@types/pg": "^8.15.5",
+    "@types/ws": "^8.5.12",
     "dotenv-cli": "^10.0.0",
     "tsx": "^4.20.6"
   }

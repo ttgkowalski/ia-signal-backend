@@ -1,11 +1,12 @@
 import { Router } from 'express'
-import { authController } from './auth.controller.ts'
-import { validateSchema } from '../middlewares/validate-schema.ts'
+
 import {
   loginHeadersSchema,
   loginSchema,
   registerSchema,
 } from '../../domain/authentication/'
+import { validateSchema } from '@/middlewares'
+import { authController } from './auth.controller'
 
 const authRoutes = Router()
 

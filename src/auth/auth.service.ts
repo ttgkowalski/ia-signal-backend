@@ -71,7 +71,7 @@ async function registerUser(input: registerDTO) {
     String(created.id),
     JSON.stringify(profileData)
   )
-
+  console.log(atrium)
   return { atrium }
 }
 
