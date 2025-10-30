@@ -4,7 +4,6 @@
     "": {
       "name": "express-rbac-multi-tenant-kysely-zod-errorhandling",
       "dependencies": {
-        "atriun-sdk": "./atriun-lib-sdk-ts",
         "axios": "^1.12.2",
         "bcrypt": "^6.0.0",
         "express": "^5.1.0",
@@ -481,50 +480,6 @@
       "",
       {},
       "sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q=="
-    ],
-    "atriun-sdk": [
-      "atriun-sdk@file:atriun-lib-sdk-ts",
-      {
-        "dependencies": {
-          "@types/json-bigint": "^1.0.4",
-          "@types/set-cookie-parser": "^2.4.10",
-          "@types/socket.io": "^3.0.2",
-          "json-bigint": "^1.0.0",
-          "like-fetch": "^1.0.0",
-          "set-cookie-parser": "^2.4.8",
-          "socket.io": "^4.8.1",
-          "undici": "^7.16.0",
-          "ws": "^8.0.0"
-        },
-        "devDependencies": {
-          "@types/node": "^18.0.0",
-          "@types/node-fetch": "^2.6.13",
-          "@types/ws": "^8.18.1",
-          "typescript": "^5.0.0"
-        }
-      }
-    ],
-    "atriun-sdk": [
-      "atriun-sdk@file:atriun-lib-sdk-ts",
-      {
-        "dependencies": {
-          "@types/json-bigint": "^1.0.4",
-          "@types/set-cookie-parser": "^2.4.10",
-          "@types/socket.io": "^3.0.2",
-          "json-bigint": "^1.0.0",
-          "like-fetch": "^1.0.0",
-          "set-cookie-parser": "^2.4.8",
-          "socket.io": "^4.8.1",
-          "undici": "^7.16.0",
-          "ws": "^8.0.0"
-        },
-        "devDependencies": {
-          "@types/node": "^18.0.0",
-          "@types/node-fetch": "^2.6.13",
-          "@types/ws": "^8.18.1",
-          "typescript": "^5.0.0"
-        }
-      }
     ],
     "axios": [
       "axios@1.12.2",
@@ -2011,26 +1966,6 @@
       },
       "sha512-Uqt8rPBE8SY0RK8JB1EzVOIZ32uqy8HwdxCnoCOsYrvnswqmFZ/k+9Ikidlk/ImhsdvBsloHbAlewb2IEBV/Og=="
     ],
-    "atriun-sdk/@types/node": [
-      "@types/node@18.19.130",
-      "",
-      {
-        "dependencies": {
-          "undici-types": "~5.26.4"
-        }
-      },
-      "sha512-GRaXQx6jGfL8sKfaIDD6OupbIHBr9jv7Jnaml9tB7l4v068PAOXqfcujMMo5PhbIs6ggR1XODELqahT2R8v0fg=="
-    ],
-    "atriun-sdk/@types/node": [
-      "@types/node@18.19.130",
-      "",
-      {
-        "dependencies": {
-          "undici-types": "~5.26.4"
-        }
-      },
-      "sha512-GRaXQx6jGfL8sKfaIDD6OupbIHBr9jv7Jnaml9tB7l4v068PAOXqfcujMMo5PhbIs6ggR1XODELqahT2R8v0fg=="
-    ],
     "dotenv-expand/dotenv": [
       "dotenv@16.6.1",
       "",
@@ -2170,18 +2105,6 @@
         }
       },
       "sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ=="
-    ],
-    "atriun-sdk/@types/node/undici-types": [
-      "undici-types@5.26.5",
-      "",
-      {},
-      "sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA=="
-    ],
-    "atriun-sdk/@types/node/undici-types": [
-      "undici-types@5.26.5",
-      "",
-      {},
-      "sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA=="
     ],
     "engine.io/accepts/mime-types": [
       "mime-types@2.1.35",
