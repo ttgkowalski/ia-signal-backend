@@ -3,7 +3,7 @@ import { z } from 'zod'
 export const updateUserSchema = z
   .object({
     affiliate_id: z.string().nullable().optional(),
-    email: z.string().email().optional(),
+    email: z.email().optional(),
     password: z.string().min(1).optional(),
     role: z.enum(['User']).optional(),
   })

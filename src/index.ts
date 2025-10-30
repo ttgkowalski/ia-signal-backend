@@ -1,11 +1,11 @@
 import express, { Router } from 'express'
 import { GlobalErrorHandler } from './middlewares/global-error-handler'
 import { BadRequestError, NotFoundError } from './errors/api-errors'
-import { authRoutes } from './auth/auth.routes.ts'
-import { userRoutes } from './user/user.routes.ts'
-import { profileRoutes } from './profile/profile.routes.ts'
-import { attachAuth } from './middlewares'
 
+import { attachAuth } from './middlewares'
+import { authRoutes } from './auth/auth.routes'
+import { profileRoutes } from './profile/profile.routes'
+import { userRoutes } from './user/user.routes'
 const app = express()
 app.use(express.json())
 
@@ -16,7 +16,6 @@ const router = Router()
 router.use('/auth', authRoutes)
 router.use('/profile', profileRoutes)
 router.use('/users', userRoutes)
-
 router.get('/:id', (req, res) => {
   const { id } = req.params
 

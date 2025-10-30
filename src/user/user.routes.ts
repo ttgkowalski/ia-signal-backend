@@ -1,9 +1,8 @@
 import { Router } from 'express'
 import { userController } from './user.controller'
-import { requireRole } from '../middlewares/auth.ts'
-import { validateSchema } from '../middlewares/validate-schema.ts'
 import { createUserSchema, updateUserSchema } from '../../domain/user'
-import { paramsWithIdSchema } from '../../domain/utils'
+import { requireRole, validateSchema } from '@/middlewares'
+import { userIdValidatorSchema } from '@/zod/user-id-schema'
 
 const userRoutes = Router()
 
@@ -17,19 +16,19 @@ userRoutes.get('/', requireRole('Manager'), userController.list)
 userRoutes.get(
   '/:id',
   requireRole('User'),
-  validateSchema({ params: paramsWithIdSchema }),
+  validateSchema({ params: userIdValidatorSchema }),
   userController.get
 )
 userRoutes.patch(
   '/:id',
   requireRole('User'),
-  validateSchema({ params: paramsWithIdSchema, body: updateUserSchema }),
+  validateSchema({ body: updateUserSchema }),
   userController.update
 )
 userRoutes.delete(
   '/:id',
   requireRole('User'),
-  validateSchema({ params: paramsWithIdSchema }),
+  validateSchema({ params: userIdValidatorSchema }),
   userController.remove
 )
 

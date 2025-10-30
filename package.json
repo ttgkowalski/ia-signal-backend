@@ -27,6 +27,7 @@
   "license": "ISC",
   "packageManager": "pnpm@10.15.1",
   "dependencies": {
+    "atriun-sdk": "./atriun-lib-sdk-ts",
     "axios": "^1.12.2",
     "bcrypt": "^6.0.0",
     "express": "^5.1.0",
