@@ -1,14 +1,14 @@
 import { Kysely, PostgresDialect } from 'kysely'
 import { Pool } from 'pg'
 
-import type { TenantTable } from '../domain/tenant/tenant.table'
 import type { UserTable } from '../domain/user/user.table'
 import type { ProfileTable } from '../domain/profile/profile.table'
+import type { AffiliateConfigTable } from '../domain/affiliate_config/affiliate_config.table'
 
 export interface Database {
-  tenants: TenantTable
   users: UserTable
   profiles: ProfileTable
+  affiliate_config: AffiliateConfigTable
 }
 
 const pool = new Pool({

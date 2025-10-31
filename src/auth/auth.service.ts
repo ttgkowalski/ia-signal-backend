@@ -43,16 +43,6 @@ function signJwt(user: { id: string; role: Role; ssid: string }): string {
 async function registerUser(input: registerDTO) {
   const existing = await userRepo.getUserByEmail(input.identifier)
   if (existing) throw new ConflictError('Email already exists')
-
-  const password_hash = await hashPassword(input.password)
-  const created = await userRepo.insertUser({
-    affiliate_id: input.affiliate_id,
-    email: input.identifier,
-    password_hash,
-    role: 'User' as Role,
-    created_at: new Date(),
-  } as NewUser)
-
   const atriumBody = {
     identifier: input.identifier,
     password: input.password,
@@ -62,46 +52,49 @@ async function registerUser(input: registerDTO) {
     last_name: input.last_name,
     timezone: input.timezone,
   }
-
   const atrium = await atriumRegister(atriumBody)
-
   const profileData = await atriumGetProfile(atrium.ssid as string)
+  const password_hash = await hashPassword(input.password)
+  const created = await userRepo.insertUser({
+    affiliate_id: profileData.result.id,
+    email: input.identifier,
+    password_hash,
+    role: 'User' as Role,
+    created_at: new Date(),
+  } as NewUser)
+
   await profileRepo.upsertProfileByAtriumId(
     String(profileData.result.id),
     String(created.id),
     JSON.stringify(profileData)
   )
-  console.log(atrium)
-  return { atrium }
+  const token = signJwt({
+    id: atrium.user_id as string,
+    role: 'User',
+    ssid: atrium.ssid,
+  })
+
+  return { token, affiliate_id: profileData.result.id }
 }
 
-async function login(input: loginDTO, affiliateId: string) {
-  const existing = await userRepo.getUserByEmail(input.email)
-  if (!existing) {
-    throw new BadRequestError('Invalid credentials')
-  }
-
-  const ok = await verifyPassword(input.password, existing.password_hash)
-  if (!ok) throw new BadRequestError('Invalid credentials')
-
+async function login(input: loginDTO) {
   const atrium = await atriumLogin({
     identifier: input.email,
     password: input.password,
   })
-  const profile = await atriumGetProfile(atrium.ssid)
-  const affId = await getUserData(atrium.user_id as string)
 
-  // if (affId != affiliateId)
-  //   throw new BadRequestError('user does not belong to this application')
+  const profile = await atriumGetProfile(atrium.ssid)
+  const affId = await getUserData(profile.result.id as string)
+  if (!affId)
+    throw new BadRequestError('user does not belong to this application')
 
   const token = signJwt({
-    id: existing.id as string,
-    role: existing.role,
+    id: profile.result.id as string,
+    role: 'User',
     ssid: atrium.ssid,
   })
 
-  const { password_hash, ...safeUser } = existing || {}
-  return { user: safeUser, token, atrium, profile }
+  return { token, affiliate_id: profile.result.id }
 }
 
 export const authService = {

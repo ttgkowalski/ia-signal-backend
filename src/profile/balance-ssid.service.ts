@@ -1,12 +1,15 @@
 import { BalanceResponse } from '@/@types/balance-response'
-import { MessageFactory } from '@/atriun-lib-sdk-ts/src'
+import { MessageFactory } from '@/lib'
 import { AtriunWebSocket } from '@/lib/websocket'
 
 export async function getBalanceService(
   ssid: string
 ): Promise<BalanceResponse> {
   try {
-    const messageFactory = new MessageFactory({ expiration: 0, profits: {} as any })
+    const messageFactory = new MessageFactory({
+      expiration: 0,
+      profits: {} as any,
+    })
 
     const userAgent =
       'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36'
