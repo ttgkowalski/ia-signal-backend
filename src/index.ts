@@ -6,7 +6,7 @@ import { attachAuth } from './middlewares'
 import { authRoutes } from './auth/auth.routes'
 import { profileRoutes } from './profile/profile.routes'
 import { userRoutes } from './user/user.routes'
-import { affiliateConfigRoutes } from './affiliate/affiliate_config.routes'
+import { affiliateConfigRoutes, affiliateRoutes } from './affiliate/affiliate_config.routes'
 const app = express()
 app.use(express.json())
 
@@ -18,6 +18,7 @@ router.use('/auth', authRoutes)
 router.use('/profile', profileRoutes)
 router.use('/users', userRoutes)
 router.use('/affiliate-config', affiliateConfigRoutes)
+router.use('/affiliate', affiliateRoutes)
 router.get('/:id', (req, res) => {
   const { id } = req.params
 

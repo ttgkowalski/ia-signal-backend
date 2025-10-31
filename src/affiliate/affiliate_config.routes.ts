@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import { affiliateConfigController } from './affiliate_config.controller'
 import { updateAffiliateConfigSchema } from '../../domain/affiliate_config'
-import { validateSchema } from '../middlewares'
+import { validateSchema, requireRole } from '../middlewares'
 import { createAffiliateConfigSchema } from '../../domain/affiliate_config/create-affiliate-config-schema'
 
 const affiliateConfigRoutes = Router()
@@ -25,3 +25,13 @@ affiliateConfigRoutes.post(
 )
 
 export { affiliateConfigRoutes }
+
+const affiliateRoutes = Router()
+
+affiliateRoutes.get(
+  '/members',
+  requireRole('Affiliate'),
+  affiliateConfigController.getAffiliateMembers
+)
+
+export { affiliateRoutes }

@@ -12,22 +12,22 @@ userRoutes.post(
   validateSchema({ body: createUserSchema }),
   userController.create
 )
-userRoutes.get('/', requireRole('Manager'), userController.list)
+userRoutes.get('/', requireRole('Affiliate'), userController.list)
 userRoutes.get(
   '/:id',
-  requireRole('User'),
+  requireRole('Member'),
   validateSchema({ params: userIdValidatorSchema }),
   userController.get
 )
 userRoutes.patch(
   '/:id',
-  requireRole('User'),
+  requireRole('Member'),
   validateSchema({ body: updateUserSchema }),
   userController.update
 )
 userRoutes.delete(
   '/:id',
-  requireRole('User'),
+  requireRole('Member'),
   validateSchema({ params: userIdValidatorSchema }),
   userController.remove
 )

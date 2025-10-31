@@ -28,7 +28,7 @@ async function create(input: CreateUserInput): Promise<User> {
     affiliate_id: input.affiliate_id ?? null,
     email: input.email,
     password_hash,
-    role: input.role ?? ('User' as Role),
+    role: input.role ?? ('Member' as Role),
     created_at: input.created_at,
   } as NewUser
 
@@ -76,10 +76,15 @@ async function remove(id: string): Promise<void> {
   await userRepo.deleteUser(id)
 }
 
+async function getMembersByAffiliateId(affiliate_id: string): Promise<User[]> {
+  return await userRepo.getUsersByAffiliateId(affiliate_id)
+}
+
 export const userService = {
   create,
   list,
   get,
   update,
   remove,
+  getMembersByAffiliateId,
 }

@@ -6,7 +6,7 @@ import type {
     Updateable,
 } from 'kysely'
 
-export type Role = "Admin" | "Manager" | "User"
+export type Role = "Admin" | "Affiliate" | "Member"
 
 export interface UserTable {
     id: Generated<string>

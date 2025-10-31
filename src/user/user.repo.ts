@@ -27,6 +27,10 @@ async function getUserByEmail(email: string): Promise<User | undefined> {
   return db.selectFrom("users").selectAll().where("email", "=", email).executeTakeFirst();
 }
 
+async function getUsersByAffiliateId(affiliate_id: string): Promise<User[]> {
+  return db.selectFrom("users").selectAll().where("affiliate_id", "=", affiliate_id).execute();
+}
+
 export const userRepo = {
   insertUser,
   listUsers,
@@ -34,5 +38,6 @@ export const userRepo = {
   updateUser,
   deleteUser,
   getUserByEmail,
+  getUsersByAffiliateId,
 };
 

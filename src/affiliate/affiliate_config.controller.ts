@@ -56,8 +56,27 @@ async function createAffiliateConfig(
     next(err)
   }
 }
+async function getAffiliateMembers(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const affiliate_id = req.headers['x-affiliate-id'] as string
+    if (!affiliate_id) {
+      return res.status(400).json({ error: 'x-affiliate-id header is required' })
+    }
+
+    const result = await affiliateConfigService.getAffiliateMembers(affiliate_id)
+    return res.json({ result })
+  } catch (err) {
+    next(err)
+  }
+}
+
 export const affiliateConfigController = {
   getAffiliateConfig,
   updateAffiliateConfig,
   createAffiliateConfig,
+  getAffiliateMembers,
 }

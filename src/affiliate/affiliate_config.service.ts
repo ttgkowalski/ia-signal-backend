@@ -4,6 +4,7 @@ import { NotFoundError } from '../errors/api-errors/not-found-error'
 import { convertImagePathsToUrls } from '../lib/image-url.service'
 import { ConflictError } from '@/errors'
 import { CreateAffiliateConfigDTO } from '../../domain/affiliate_config/create-affiliate-config-schema'
+import { userService } from '../user/user.service'
 
 async function getAffiliateConfig(affiliate_id: string) {
   const config = await affiliateConfigRepo.getAffiliateConfigByAffiliateId(
@@ -91,8 +92,13 @@ async function updateAffiliateConfig(
   }
 }
 
+async function getAffiliateMembers(affiliate_id: string) {
+  return await userService.getMembersByAffiliateId(affiliate_id)
+}
+
 export const affiliateConfigService = {
   getAffiliateConfig,
   createAffiliateConfig,
   updateAffiliateConfig,
+  getAffiliateMembers,
 }

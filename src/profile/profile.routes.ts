@@ -9,14 +9,14 @@ const profileRoutes = Router()
 
 profileRoutes.get(
   '/',
-  requireRole('User'),
+  requireRole('Member'),
   validateSchema({ headers: ssidValidatorSchema }),
   profileController.getProfile
 )
 
 profileRoutes.get(
   '/balance',
-  requireRole('User'),
+  requireRole('Member'),
   validateSchema({ headers: ssidValidatorSchema }),
   profileController.getBalance
 )

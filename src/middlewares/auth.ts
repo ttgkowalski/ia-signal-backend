@@ -44,12 +44,12 @@ export function attachAuth(req: Request, _res: Response, next: NextFunction) {
 }
 
 export function requireRole(minRole: Role | Role[]) {
-  const order: Record<Role, number> = { Admin: 3, Manager: 2, User: 1 }
+  const order: Record<Role, number> = { Admin: 3, Affiliate: 2, Member: 1 }
   const rolesList = Array.isArray(minRole) ? minRole : [minRole]
   const minRank = Math.max(...rolesList.map((r) => order[r]))
 
   return (req: Request, res: Response, next: NextFunction) => {
-    const role = req.auth?.role || 'User'
+    const role = req.auth?.role || 'Member'
     const userRank = order[role]
 
     if (userRank >= minRank) {
