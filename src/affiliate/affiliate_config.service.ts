@@ -6,9 +6,9 @@ import { ConflictError } from '@/errors'
 import { CreateAffiliateConfigDTO } from '../../domain/affiliate_config/create-affiliate-config-schema'
 import { userService } from '../user/user.service'
 
-async function getAffiliateConfig(affiliate_id: string) {
-  const config = await affiliateConfigRepo.getAffiliateConfigByAffiliateId(
-    affiliate_id
+async function getAffiliateConfig(atrium_id: string) {
+  const config = await affiliateConfigRepo.getAffiliateConfigByAtriumId(
+    atrium_id
   )
   if (!config) {
     throw new NotFoundError('Affiliate config')
@@ -29,7 +29,7 @@ async function createAffiliateConfig(
   input: CreateAffiliateConfigDTO,
   affiliate_id: string
 ) {
-  const existing = await affiliateConfigRepo.getAffiliateConfigByAffiliateId(
+  const existing = await affiliateConfigRepo.getAffiliateConfigByAtriumId(
     affiliate_id
   )
   if (existing) {
@@ -45,10 +45,9 @@ async function createAffiliateConfig(
     primary_color: input.primary_color ?? '#000000',
     secondary_color: input.secondary_color ?? '#FFFFFF',
     video_iframe: input.video_iframe ?? null,
-    atrium_affiliate_id: input.atrium_affiliate_id ?? null,
+    atrium_id: input.atrium_id ?? null,
   })
 
-  // Converter paths de imagens para URLs
   const { logo_url, icon_url } = await convertImagePathsToUrls({
     logo_url: created.logo_url,
     icon_url: created.icon_url,
@@ -61,18 +60,18 @@ async function createAffiliateConfig(
   }
 }
 async function updateAffiliateConfig(
-  affiliate_id: string,
+  atrium_id: string,
   input: UpdateAffiliateConfigDTO
 ) {
-  const existing = await affiliateConfigRepo.getAffiliateConfigByAffiliateId(
-    affiliate_id
+  const existing = await affiliateConfigRepo.getAffiliateConfigByAtriumId(
+    atrium_id
   )
   if (!existing) {
     throw new NotFoundError('Affiliate config')
   }
 
-  const updated = await affiliateConfigRepo.updateAffiliateConfigByAffiliateId(
-    affiliate_id,
+  const updated = await affiliateConfigRepo.updateAffiliateConfigByAtriumId(
+    atrium_id,
     input
   )
 

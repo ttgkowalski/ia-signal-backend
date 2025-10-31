@@ -4,18 +4,14 @@ import {
   atriumLogin,
   atriumGetProfile,
 } from '../clients/atrium.client'
-import { atriumProfileSchema } from '../../domain/user'
 import { sign, type SignOptions, type Secret } from 'jsonwebtoken'
 import type { Role, NewUser } from '../../domain/user/user.table'
 import { userRepo } from '../user/user.repo'
 import { profileRepo } from '../profile/profile.repo'
-import { NotFoundError } from '../errors/api-errors/not-found-error'
 import { BadRequestError } from '../errors/api-errors/bad-request-error'
 import { ConflictError } from '../errors'
-import { InternalServerError } from '../errors'
 import { registerDTO } from '../../domain/authentication/register.schema'
 import { loginDTO } from '../../domain/authentication/login.schema'
-import { profile } from 'console'
 import { getUserData } from '../clients/check.user'
 
 const SALT_ROUNDS = 10
@@ -56,10 +52,11 @@ async function registerUser(input: registerDTO) {
   const profileData = await atriumGetProfile(atrium.ssid as string)
   const password_hash = await hashPassword(input.password)
   const created = await userRepo.insertUser({
-    affiliate_id: profileData.result.id,
+    affiliate_id: input.affiliate_id,
     email: input.identifier,
     password_hash,
-    role: 'User' as Role,
+    atrium_id: profileData.result.id,
+    role: 'Member' as Role,
     created_at: new Date(),
   } as NewUser)
 
@@ -70,11 +67,11 @@ async function registerUser(input: registerDTO) {
   )
   const token = signJwt({
     id: profileData.result.id as string,
-    role: 'User',
+    role: 'Member',
     ssid: atrium.ssid,
   })
 
-  return { token, affiliate_id: profileData.result.id }
+  return { token, atrium_id: profileData.result.id }
 }
 
 async function login(input: loginDTO) {
@@ -90,11 +87,11 @@ async function login(input: loginDTO) {
 
   const token = signJwt({
     id: profile.result.id as string,
-    role: 'User',
+    role: 'Member',
     ssid: atrium.ssid,
   })
 
-  return { token, affiliate_id: profile.result.id }
+  return { token, atrium_id: profile.result.id }
 }
 
 export const authService = {

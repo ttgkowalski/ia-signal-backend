@@ -5,13 +5,13 @@ import type {
   AffiliateConfigUpdate,
 } from '../../domain/affiliate_config/affiliate_config.table.js'
 
-async function getAffiliateConfigByAffiliateId(
-  affiliate_id: string
+async function getAffiliateConfigByAtriumId(
+  atrium_id: string
 ): Promise<AffiliateConfig | undefined> {
   return db
     .selectFrom('affiliate_config')
     .selectAll()
-    .where('affiliate_id', '=', affiliate_id)
+    .where('atrium_id', '=', atrium_id)
     .executeTakeFirst()
 }
 
@@ -26,7 +26,7 @@ async function insertAffiliateConfig(
   return row!
 }
 
-async function updateAffiliateConfigByAffiliateId(
+async function updateAffiliateConfigByAtriumId(
   affiliate_id: string,
   input: AffiliateConfigUpdate
 ): Promise<AffiliateConfig | null> {
@@ -44,7 +44,7 @@ async function updateAffiliateConfigByAffiliateId(
 async function upsertAffiliateConfig(
   input: NewAffiliateConfig
 ): Promise<AffiliateConfig> {
-  const existing = await getAffiliateConfigByAffiliateId(input.affiliate_id)
+  const existing = await getAffiliateConfigByAtriumId(input.affiliate_id)
   if (existing) {
     const updated = await db
       .updateTable('affiliate_config')
@@ -67,8 +67,8 @@ async function upsertAffiliateConfig(
 }
 
 export const affiliateConfigRepo = {
-  getAffiliateConfigByAffiliateId,
+  getAffiliateConfigByAtriumId,
   insertAffiliateConfig,
-  updateAffiliateConfigByAffiliateId,
+  updateAffiliateConfigByAtriumId,
   upsertAffiliateConfig,
 }

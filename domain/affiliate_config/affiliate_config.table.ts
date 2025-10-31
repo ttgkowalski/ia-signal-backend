@@ -14,7 +14,7 @@ export interface AffiliateConfigTable {
   primary_color: string
   secondary_color: string
   video_iframe: string | null
-  atrium_affiliate_id: string | null
+  atrium_id: string | null
   created_at: ColumnType<Date, Date | undefined, never>
   updated_at: ColumnType<Date, Date | undefined, never>
 }
@@ -22,4 +22,3 @@ export interface AffiliateConfigTable {
 export type AffiliateConfig = Selectable<AffiliateConfigTable>
 export type NewAffiliateConfig = Insertable<AffiliateConfigTable>
 export type AffiliateConfigUpdate = Updateable<AffiliateConfigTable>
-
