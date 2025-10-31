@@ -34,7 +34,7 @@ function signJwt(user: { id: string; role: Role; ssid: string }): string {
     expiresIn: (process.env.JWT_EXPIRES_IN || '7d') as SignOptions['expiresIn'],
   }
   return sign(
-    { sub: user.id, role: user.role, ssid: user.ssid },
+    { userId: user.id, role: user.role, ssid: user.ssid },
     secret,
     options
   )
@@ -69,7 +69,7 @@ async function registerUser(input: registerDTO) {
     JSON.stringify(profileData)
   )
   const token = signJwt({
-    id: atrium.user_id as string,
+    id: profileData.result.id as string,
     role: 'User',
     ssid: atrium.ssid,
   })

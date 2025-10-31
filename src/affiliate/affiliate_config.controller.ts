@@ -7,7 +7,7 @@ async function getAffiliateConfig(
   next: NextFunction
 ) {
   try {
-    const affiliate_id = req.headers['x-affiliate-id'] as string
+    const affiliate_id = req.auth?.userId
     if (!affiliate_id) {
       return res.status(400).json({ error: 'affiliate_id is required' })
     }
@@ -25,7 +25,7 @@ async function updateAffiliateConfig(
   next: NextFunction
 ) {
   try {
-    const affiliate_id = req.headers['x-affiliate-id'] as string
+    const affiliate_id = req.auth?.userId
     if (!affiliate_id) {
       return res.status(400).json({ error: 'affiliate_id is required' })
     }
@@ -39,8 +39,25 @@ async function updateAffiliateConfig(
     next(err)
   }
 }
+async function createAffiliateConfig(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const id = req.auth?.userId
 
+    const result = await affiliateConfigService.createAffiliateConfig(
+      req.body,
+      id!
+    )
+    return res.status(201).json({ result })
+  } catch (err) {
+    next(err)
+  }
+}
 export const affiliateConfigController = {
   getAffiliateConfig,
   updateAffiliateConfig,
+  createAffiliateConfig,
 }

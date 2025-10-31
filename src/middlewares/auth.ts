@@ -27,12 +27,16 @@ export function attachAuth(req: Request, _res: Response, next: NextFunction) {
   try {
     const secret = process.env.JWT_SECRET || 'i-am-an-idiot'
     const payload = verify(token, secret) as {
-      sub: string
+      userId: string
       role: Role
       ssid: string
     }
 
-    req.auth = { userId: payload.sub, role: payload.role, ssid: payload.ssid }
+    req.auth = {
+      userId: payload.userId,
+      role: payload.role,
+      ssid: payload.ssid,
+    }
   } catch (error) {
     console.log('Token verification failed:', error)
   }
