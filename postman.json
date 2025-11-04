@@ -514,6 +514,137 @@
           ]
         },
         {
+          "info": {
+            "name": "Affiliate Config API",
+            "_postman_id": "affiliates-collection",
+            "description": "Collection para testar endpoints de Affiliate Config com Multer e MinIO",
+            "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+          },
+          "item": [
+            {
+              "name": "Create Affiliate Config",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{authToken}}"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "affiliate_id",
+                      "value": "12345",
+                      "type": "text"
+                    },
+                    {
+                      "key": "primary_color",
+                      "value": "#ff0000",
+                      "type": "text"
+                    },
+                    {
+                      "key": "secondary_color",
+                      "value": "#00ff00",
+                      "type": "text"
+                    },
+                    {
+                      "key": "logo_file",
+                      "type": "file",
+                      "src": ""
+                    },
+                    {
+                      "key": "icon_file",
+                      "type": "file",
+                      "src": ""
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/affiliate-config",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "affiliate-config"
+                  ]
+                },
+                "description": "Cria um novo affiliate config com logo e icon (arquivos enviados via form-data)"
+              },
+              "response": []
+            },
+            {
+              "name": "Update Affiliate Config",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{authToken}}"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "primary_color",
+                      "value": "#0000ff",
+                      "type": "text"
+                    },
+                    {
+                      "key": "logo_file",
+                      "type": "file",
+                      "src": ""
+                    },
+                    {
+                      "key": "icon_file",
+                      "type": "file",
+                      "src": ""
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/affiliate-config/{{atriumId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "affiliate-config",
+                    "{{atriumId}}"
+                  ]
+                },
+                "description": "Atualiza um affiliate config existente (arquivos opcionais)"
+              },
+              "response": []
+            },
+            {
+              "name": "Get Affiliate Config",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{authToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/affiliate-config/{{atriumId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "affiliate-config",
+                    "{{atriumId}}"
+                  ]
+                },
+                "description": "Retorna os dados do affiliate config, com URLs presigned para logo e icon"
+              },
+              "response": []
+            }
+          ]
+        },
+        {
           "name": "Update User",
           "request": {
             "method": "PATCH",

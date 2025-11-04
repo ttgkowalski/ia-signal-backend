@@ -45,11 +45,22 @@ async function createAffiliateConfig(
   next: NextFunction
 ) {
   try {
-    const id = req.auth?.userId
+    const files = req.files as Record<string, Express.Multer.File[]>
+    const body = req.body
+    const affiliate_id = req.auth?.userId
+
+    if (!affiliate_id) {
+      return res.status(400).json({ error: 'affiliate_id is required' })
+    }
+    const input = {
+      ...body,
+      logo_file: files.logo ? files.logo[0] : null,
+      icon_file: files.icon ? files.icon[0] : null,
+    }
 
     const result = await affiliateConfigService.createAffiliateConfig(
-      req.body,
-      id!
+      input,
+      affiliate_id
     )
     return res.status(201).json({ result })
   } catch (err) {
@@ -64,10 +75,14 @@ async function getAffiliateMembers(
   try {
     const affiliate_id = req.headers['x-affiliate-id'] as string
     if (!affiliate_id) {
-      return res.status(400).json({ error: 'x-affiliate-id header is required' })
+      return res
+        .status(400)
+        .json({ error: 'x-affiliate-id header is required' })
     }
 
-    const result = await affiliateConfigService.getAffiliateMembers(affiliate_id)
+    const result = await affiliateConfigService.getAffiliateMembers(
+      affiliate_id
+    )
     return res.json({ result })
   } catch (err) {
     next(err)

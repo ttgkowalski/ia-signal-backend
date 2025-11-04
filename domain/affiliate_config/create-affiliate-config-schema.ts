@@ -1,8 +1,6 @@
 import { z } from 'zod'
 
 export const createAffiliateConfigSchema = z.object({
-  logo_url: z.string().nullable().optional(),
-  icon_url: z.string().nullable().optional(),
   primary_color: z.string().optional(),
   secondary_color: z.string().optional(),
   video_iframe: z.string().nullable().optional(),

@@ -7,7 +7,7 @@ export async function up(knex: Knex): Promise<void> {
     table.string('password_hash').notNullable()
     table.string('affiliate_id').notNullable()
     table.string('atrium_id').notNullable().unique()
-    table.enum('role', ['Admin', 'Manager', 'User']).notNullable()
+    table.enum('role', ['Admin', 'Manager', 'Member']).notNullable()
     table.timestamp('created_at').defaultTo(knex.fn.now()).notNullable()
 
     table.index('email')

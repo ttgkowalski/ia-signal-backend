@@ -1,34 +1,60 @@
-import { db } from "../db.ts";
-import type { User, NewUser, UserUpdate } from "../../domain/user/user.table";
+import { db } from '@/db'
+import type { User, NewUser, UserUpdate } from '../../domain/user/user.table'
 
 async function insertUser(input: NewUser): Promise<User> {
-  const row = await db.insertInto("users").values(input).returningAll().executeTakeFirst();
-  return row!;
+  try {
+    const row = await db
+      .insertInto('users')
+      .values(input)
+      .returningAll()
+      .executeTakeFirst()
+    return row!
+  } catch (error) {
+    console.error('Error inserting user:', error)
+    throw error
+  }
 }
 
 async function listUsers(): Promise<User[]> {
-  return db.selectFrom("users").selectAll().execute();
+  return db.selectFrom('users').selectAll().execute()
 }
 
 async function getUser(id: string): Promise<User | undefined> {
-  return db.selectFrom("users").selectAll().where("id", "=", id).executeTakeFirst();
+  return db
+    .selectFrom('users')
+    .selectAll()
+    .where('id', '=', id)
+    .executeTakeFirst()
 }
 
 async function updateUser(id: string, input: UserUpdate): Promise<User | null> {
-  const updated = await db.updateTable("users").set(input).where("id", "=", id).returningAll().executeTakeFirst();
-  return updated ?? null;
+  const updated = await db
+    .updateTable('users')
+    .set(input)
+    .where('id', '=', id)
+    .returningAll()
+    .executeTakeFirst()
+  return updated ?? null
 }
 
 async function deleteUser(id: string): Promise<void> {
-  await db.deleteFrom("users").where("id", "=", id).executeTakeFirst();
+  await db.deleteFrom('users').where('id', '=', id).executeTakeFirst()
 }
 
 async function getUserByEmail(email: string): Promise<User | undefined> {
-  return db.selectFrom("users").selectAll().where("email", "=", email).executeTakeFirst();
+  return db
+    .selectFrom('users')
+    .selectAll()
+    .where('email', '=', email)
+    .executeTakeFirst()
 }
 
 async function getUsersByAffiliateId(affiliate_id: string): Promise<User[]> {
-  return db.selectFrom("users").selectAll().where("affiliate_id", "=", affiliate_id).execute();
+  return db
+    .selectFrom('users')
+    .selectAll()
+    .where('affiliate_id', '=', affiliate_id)
+    .execute()
 }
 
 export const userRepo = {
@@ -39,5 +65,4 @@ export const userRepo = {
   deleteUser,
   getUserByEmail,
   getUsersByAffiliateId,
-};
-
+}

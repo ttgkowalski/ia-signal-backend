@@ -10,7 +10,6 @@ export async function up(knex: Knex): Promise<void> {
     table.text('primary_color').defaultTo('#000000').notNullable()
     table.text('secondary_color').defaultTo('#FFFFFF').notNullable()
     table.text('video_iframe').nullable()
-    table.string('atrium_id').nullable()
     table.timestamp('created_at').defaultTo(knex.fn.now()).notNullable()
     table.timestamp('updated_at').defaultTo(knex.fn.now()).notNullable()
 

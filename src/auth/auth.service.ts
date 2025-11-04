@@ -37,8 +37,6 @@ function signJwt(user: { id: string; role: Role; ssid: string }): string {
 }
 
 async function registerUser(input: registerDTO) {
-  const existing = await userRepo.getUserByEmail(input.identifier)
-  if (existing) throw new ConflictError('Email already exists')
   const atriumBody = {
     identifier: input.identifier,
     password: input.password,
@@ -51,6 +49,8 @@ async function registerUser(input: registerDTO) {
   const atrium = await atriumRegister(atriumBody)
   const profileData = await atriumGetProfile(atrium.ssid as string)
   const password_hash = await hashPassword(input.password)
+
+  console.log('Affiliate ID:', input.affiliate_id)
   const created = await userRepo.insertUser({
     affiliate_id: input.affiliate_id,
     email: input.identifier,
@@ -59,7 +59,7 @@ async function registerUser(input: registerDTO) {
     role: 'Member' as Role,
     created_at: new Date(),
   } as NewUser)
-
+  console.log('Created User:', created)
   await profileRepo.upsertProfileByAtriumId(
     String(profileData.result.id),
     String(created.id),
