@@ -1,14 +1,14 @@
-import { Router } from 'express'
+import { Router, type IRouter } from 'express'
 
 import {
   loginHeadersSchema,
   loginSchema,
   registerSchema,
 } from '../../domain/authentication/'
-import { validateSchema } from '@/middlewares'
+import { validateSchema } from '../middlewares'
 import { authController } from './auth.controller'
 
-const authRoutes = Router()
+const authRoutes: IRouter = Router()
 
 authRoutes.post(
   '/register',

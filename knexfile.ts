@@ -4,7 +4,9 @@ const config: Record<string, Knex.Config> = {
   development: {
     client: "pg",
     connection: {
-      database: `${process.env.PROJECT_NAME}_${process.env.ENVIRONMENT}`,
+      host: `${process.env.DB_HOST}`,
+      port: Number(process.env.DB_PORT),
+      database: `ia-signal-prod`,
       user: `${process.env.DB_USER}`,
       password: `${process.env.DB_PASSWORD}`
     },
@@ -24,7 +26,9 @@ const config: Record<string, Knex.Config> = {
   production: {
     client: "pg",
     connection: {
-      database: `${process.env.PROJECT_NAME}_${process.env.ENVIRONMENT}`,
+      host: `${process.env.DB_HOST}`,
+      port: Number(process.env.DB_PORT),
+      database: `ia-signal-prod`,
       user: `${process.env.DB_USER}`,
       password: `${process.env.DB_PASSWORD}`
     },

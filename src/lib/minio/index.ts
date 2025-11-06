@@ -1,6 +1,6 @@
 import * as Minio from 'minio'
 
-// export const MINIO_BUCKET = process.env.MINIO_BUCKET
+export const MINIO_BUCKET = process.env.MINIO_BUCKET || ''
 // const MINIO_ENDPOINT = process.env.MINIO_ENDPOINT
 // const MINIO_ACCESS_KEY = process.env.MINIO_ACCESS_KEY
 // const MINIO_SECRET_KEY = process.env.MINIO_SECRET_KEY
@@ -17,7 +17,7 @@ export async function uploadMinIO(
   objectName: string,
   fileBuffer: Buffer,
   fileMimeType: string
-) {
+): Promise<string | null> {
   // const exists = await minioClient.bucketExists(MINIO_BUCKET)
   // if (!exists) {
   //   await minioClient.makeBucket(MINIO_BUCKET)
@@ -26,14 +26,17 @@ export async function uploadMinIO(
   //   'Content-Type': fileMimeType,
   // } as any)
   // return buildPublicUrl(objectName)
+  return null
 }
 
-export function buildPublicUrl(objectName: string) {
+export function buildPublicUrl(objectName: string): string {
   // return `https://${MINIO_ENDPOINT}/${MINIO_BUCKET}/${encodeURIComponent(
   //   objectName
   // )}`
+  return ''
 }
 
-export async function getPresignedUrl(objectName: string) {
+export async function getPresignedUrl(objectName: string): Promise<string | null> {
   // return minioClient.presignedGetObject(MINIO_BUCKET, objectName)
+  return null
 }

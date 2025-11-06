@@ -1,6 +1,6 @@
 import type { Request, Response, NextFunction } from 'express'
 import { atriumGetProfile } from '../clients/atrium.client'
-import { getBalanceService } from '@/profile/balance-ssid.service'
+import { getBalanceService } from './balance-ssid.service'
 
 async function getProfile(req: Request, res: Response, next: NextFunction) {
   const id = req.auth?.ssid

@@ -1,5 +1,7 @@
 # dependencies (bun install)
 node_modules
+src/atriun-lib-sdk-ts/node_modules
+src/atriun-lib-sdk-ts/old
 
 # output
 out

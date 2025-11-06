@@ -1,10 +1,10 @@
-import { Router } from 'express'
+import { Router, type IRouter } from 'express'
 import { userController } from './user.controller'
 import { createUserSchema, updateUserSchema } from '../../domain/user'
-import { requireRole, validateSchema } from '@/middlewares'
-import { userIdValidatorSchema } from '@/zod/user-id-schema'
+import { requireRole, validateSchema } from '../middlewares'
+import { userIdValidatorSchema } from '../zod/user-id-schema'
 
-const userRoutes = Router()
+const userRoutes: IRouter = Router()
 
 userRoutes.post(
   '/',

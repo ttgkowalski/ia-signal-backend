@@ -1,11 +1,11 @@
-import { Router } from 'express'
+import { Router, type IRouter } from 'express'
 import { affiliateConfigController } from './affiliate_config.controller'
 import { updateAffiliateConfigSchema } from '../../domain/affiliate_config'
 import { validateSchema, requireRole } from '../middlewares'
 import { createAffiliateConfigSchema } from '../../domain/affiliate_config/create-affiliate-config-schema'
 import { multerConfig } from '../../multer-config'
 
-const affiliateConfigRoutes = Router()
+const affiliateConfigRoutes: IRouter = Router()
 
 affiliateConfigRoutes.get(
   '/',
@@ -32,7 +32,7 @@ affiliateConfigRoutes.post(
 
 export { affiliateConfigRoutes }
 
-const affiliateRoutes = Router()
+const affiliateRoutes: IRouter = Router()
 
 affiliateRoutes.get(
   '/members',

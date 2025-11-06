@@ -1,11 +1,11 @@
-import { Router } from 'express'
+import { Router, type IRouter } from 'express'
 import { requireRole } from '../middlewares/auth'
 import { profileController } from './profile.controller'
 
-import { validateSchema } from '@/middlewares'
+import { validateSchema } from '../middlewares'
 import { ssidValidatorSchema } from '../zod/ssid-validator-schema'
 
-const profileRoutes = Router()
+const profileRoutes: IRouter = Router()
 
 profileRoutes.get(
   '/',

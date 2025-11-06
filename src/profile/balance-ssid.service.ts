@@ -1,6 +1,6 @@
-import { BalanceResponse } from '@/@types/balance-response'
-import { MessageFactory } from '@/lib'
-import { AtriunWebSocket } from '@/lib/websocket'
+import { BalanceResponse } from '../@types/balance-response'
+import { MessageFactory } from '../lib'
+import { AtriunWebSocket } from '../lib/websocket'
 
 export async function getBalanceService(
   ssid: string

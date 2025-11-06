@@ -13,13 +13,9 @@ async function register(req: Request, res: Response, next: NextFunction) {
 
 async function login(req: Request, res: Response, next: NextFunction) {
   try {
-    const result = await authService.login(
-      req.body,
-      req.headers['x-affiliate-id'] as string
-    )
+    const result = await authService.login(req.body)
     if (!result) return res.status(401).json({ error: 'Invalid credentials' })
-    const { password_hash, ...safeUser } = (result.user as any) || {}
-    res.json({ ...result, user: safeUser })
+    res.json(result)
   } catch (err) {
     next(err)
   }
